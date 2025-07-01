@@ -1,8 +1,26 @@
-// This function changes the text content of the paragraph with id="message"
-function changeMessage() {
-    // Find the paragraph by its ID
-    const messageParagraph = document.getElementById("message");
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Basic Web Demo</title>
 
-    // Change the text content
-    messageParagraph.textContent = "You clicked the button! 🎉";
-}
+    <!-- Link to the CSS file -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- A heading element -->
+    <h1>Hello, Web!</h1>
+
+    <!-- A paragraph -->
+    <p>Click the button to see JavaScript in action.</p>
+
+    <!-- A button that will trigger JavaScript when clicked -->
+    <button onclick="changeMessage()">Click Me</button>
+
+    <!-- A paragraph that will be updated by JavaScript -->
+    <p id="message">This message will change.</p>
+
+    <!-- Link to the JavaScript file -->
+    <script src="script.js"></script>
+</body>
+</html>
