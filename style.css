@@ -1,0 +1,30 @@
+/* Set a white background and black text */
+body {
+    background-color: white;
+    color: black;
+    font-family: Arial, sans-serif;
+    text-align: center; /* Center the text */
+    padding: 50px;
+}
+
+/* Style the button */
+button {
+    background-color: black;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+/* Add a hover effect to the button */
+button:hover {
+    background-color: #333;
+}
+
+/* Add space above the message */
+#message {
+    margin-top: 20px;
+    font-weight: bold;
+}
