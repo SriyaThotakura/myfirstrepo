@@ -67,6 +67,39 @@ function toggleMusic() {
     }
 }
 
+// --- CYBERCORE PARTICLES ---
+function spawnCyberParticles() {
+    const colors = [
+        'rgba(245,164,214,0.8)', 'rgba(233,69,96,0.7)', 'rgba(83,52,131,0.7)',
+        'rgba(15,242,255,0.7)', 'rgba(255,255,255,0.5)'
+    ];
+    const particleCount = 16;
+    const container = document.querySelector('.cyber-particles');
+    if (!container) return;
+    container.innerHTML = '';
+    for (let i = 0; i < particleCount; i++) {
+        const p = document.createElement('div');
+        p.className = 'cyber-particle';
+        p.style.background = colors[Math.floor(Math.random()*colors.length)];
+        p.style.width = p.style.height = `${16 + Math.random()*24}px`;
+        p.style.left = `${Math.random()*100}vw`;
+        p.style.top = `${Math.random()*100}vh`;
+        p.style.animationDelay = `${Math.random()*10}s`;
+        container.appendChild(p);
+    }
+}
+spawnCyberParticles();
+
+// --- CYBERCORE GLITCH SIMULATION ---
+function triggerGlitch() {
+    document.body.classList.add('flicker');
+    document.querySelector('.glitch-overlay').style.opacity = '0.55';
+    setTimeout(() => {
+        document.body.classList.remove('flicker');
+        document.querySelector('.glitch-overlay').style.opacity = '0.18';
+    }, 1200);
+}
+
 // Show popup when page loads
 document.addEventListener('DOMContentLoaded', function() {
     setTimeout(function() {

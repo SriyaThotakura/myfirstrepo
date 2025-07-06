@@ -1,18 +1,67 @@
 /* Set a multi-color dark background and light text */
 body {
-    background: linear-gradient(135deg, 
-        #1a1a2e 0%, 
-        #16213e 25%, 
-        #0f3460 50%, 
-        #533483 75%, 
-        #e94560 100%);
+    /* Sulky Baby palette background overlay */
+    background: linear-gradient(135deg, #cbe7f7 0%, #f5a4d6 35%, #e94560 70%, #0ff2ff 100%);
     background-attachment: fixed;
     color: #ffffff;
     font-family: Arial, sans-serif;
-    text-align: center; /* Center the text */
+    text-align: center;
     padding: 50px;
     min-height: 100vh;
     margin: 0;
+}
+
+.social-bar {
+    position: fixed;
+    top: 24px;
+    left: 24px;
+    z-index: 12001;
+    display: flex;
+    gap: 22px;
+    background: rgba(203,231,247,0.80);
+    border-radius: 16px;
+    padding: 10px 22px;
+    box-shadow: 0 2px 16px #f5a4d6a0;
+    align-items: center;
+    backdrop-filter: blur(6px);
+}
+.social-bar a img {
+    width: 28px;
+    height: 28px;
+    filter: drop-shadow(0 2px 4px #e94560cc) saturate(1.2);
+    transition: filter 0.2s, transform 0.2s;
+}
+.social-bar a:hover img {
+    filter: drop-shadow(0 4px 12px #0ff2ffcc) brightness(1.2);
+    transform: scale(1.18) rotate(-8deg);
+}
+
+.album-cover {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 18px;
+}
+.album-cover img {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 22px;
+    box-shadow: 0 8px 32px #0ff2ff66, 0 2px 16px #e94560a0;
+    border: 4px solid #f5a4d6;
+    margin-bottom: 10px;
+    transition: box-shadow 0.3s;
+}
+.album-cover img:hover {
+    box-shadow: 0 12px 40px #e94560cc, 0 2px 20px #0ff2ffaa;
+}
+.album-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #e94560;
+    letter-spacing: 1.2px;
+    text-shadow: 0 2px 8px #0ff2ff99, 0 1px 2px #fff;
+    margin-bottom: 6px;
 }
 
 /* Style the button */
@@ -191,6 +240,83 @@ p {
 }
 .sticker-catbot .catbot-eye {
     animation-delay: 0s;
+}
+
+.glitch-overlay {
+    pointer-events: none;
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    z-index: 10000;
+    mix-blend-mode: lighten;
+    background: repeating-linear-gradient(90deg, rgba(233,69,96,0.08) 0 2px, transparent 2px 6px), repeating-linear-gradient(0deg, rgba(83,52,131,0.06) 0 3px, transparent 3px 8px);
+    opacity: 0.18;
+    animation: glitchMove 1.2s infinite linear;
+}
+
+@keyframes glitchMove {
+    0% { background-position: 0 0, 0 0; }
+    100% { background-position: 40px 20px, 0 16px; }
+}
+
+.cyber-particles {
+    pointer-events: none;
+    position: fixed;
+    left: 0; top: 0;
+    width: 100vw; height: 100vh;
+    z-index: 9999;
+    overflow: hidden;
+}
+.cyber-particle {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.8;
+    mix-blend-mode: screen;
+    animation: particleMove 12s linear infinite;
+}
+@keyframes particleMove {
+    0% { transform: translateY(0) scale(1); opacity: 0.9; }
+    80% { opacity: 0.7; }
+    100% { transform: translateY(-100vh) scale(1.2); opacity: 0; }
+}
+
+.glitch-btn {
+    position: fixed;
+    top: 16px; right: 32px;
+    z-index: 12000;
+    font-family: 'Roboto', monospace;
+    font-size: 1.1rem;
+    padding: 10px 28px;
+    background: linear-gradient(90deg, #e94560, #0ff2ff, #533483);
+    color: #fff;
+    border: none;
+    border-radius: 18px;
+    box-shadow: 0 2px 16px #e9456040;
+    cursor: pointer;
+    letter-spacing: 2px;
+    transition: filter 0.2s;
+    filter: contrast(1.4) brightness(1.1);
+}
+.glitch-btn:active {
+    filter: blur(0.5px) brightness(1.5) contrast(2);
+}
+
+.flicker {
+    animation: textFlicker 0.14s infinite alternate;
+    color: #fff;
+    text-shadow: 0 0 6px #e94560, 0 0 12px #0ff2ff;
+}
+@keyframes textFlicker {
+    0%, 100% { opacity: 1; filter: blur(0); }
+    40% { opacity: 0.6; filter: blur(1.2px); }
+    60% { opacity: 0.7; filter: blur(0.5px); }
+    80% { opacity: 0.9; filter: blur(0.8px); }
+}
+
+.sticker-android .android-eye {
+    animation: blinkEye 4.1s infinite;
+}
+.sticker-ghost .ghost-eye {
+    animation: blinkEye 6s infinite;
 }
 
 @keyframes blinkEye {

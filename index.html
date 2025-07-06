@@ -1,116 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sriya's Yeule Music Space</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
-    <!-- YouTube API -->
-    <script src="https://www.youtube.com/player_api"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sriya's Yeule Music Space</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
 </head>
 <body>
-<div class="sticker-zone">
-  <!-- Sticker 1: Blinking Catbot -->
-  <div class="sticker sticker-catbot">
-    <svg width="60" height="60" viewBox="0 0 60 60">
-      <ellipse cx="30" cy="35" rx="18" ry="20" fill="#f5a4d6" />
-      <ellipse class="catbot-eye" cx="22" cy="35" rx="3" ry="5" fill="#fff"/>
-      <ellipse class="catbot-eye" cx="38" cy="35" rx="3" ry="5" fill="#fff"/>
-      <ellipse class="catbot-pupil" cx="22" cy="35" rx="1" ry="2" fill="#0f3460"/>
-      <ellipse class="catbot-pupil" cx="38" cy="35" rx="1" ry="2" fill="#0f3460"/>
-      <!-- Ears -->
-      <polygon points="15,20 22,25 18,30" fill="#e94560"/>
-      <polygon points="45,20 38,25 42,30" fill="#e94560"/>
-    </svg>
-  </div>
-  <!-- Sticker 2: Blinking Glitch Bunny -->
-  <div class="sticker sticker-bunny">
-    <svg width="60" height="60" viewBox="0 0 60 60">
-      <ellipse cx="30" cy="38" rx="15" ry="18" fill="#533483" />
-      <!-- Ears -->
-      <rect x="20" y="10" width="5" height="18" rx="3" fill="#e94560"/>
-      <rect x="35" y="10" width="5" height="18" rx="3" fill="#e94560"/>
-      <!-- Eyes -->
-      <ellipse class="bunny-eye" cx="25" cy="40" rx="2.5" ry="4" fill="#fff"/>
-      <ellipse class="bunny-eye" cx="35" cy="40" rx="2.5" ry="4" fill="#fff"/>
-      <ellipse class="bunny-pupil" cx="25" cy="40" rx="1" ry="1.5" fill="#1a1a2e"/>
-      <ellipse class="bunny-pupil" cx="35" cy="40" rx="1" ry="1.5" fill="#1a1a2e"/>
-    </svg>
-  </div>
-  <!-- Add more stickers as desired -->
-</div>
-    <!-- Introduction Popup -->
-    <div id="popup" class="popup">
-        <div class="popup-content">
-            <span class="close-popup">&times;</span>
-            <h2>Welcome to My Yeule Space</h2>
-            <p>Hi, I'm Sriya, a passionate fan of Yeule's innovative music and cybercore aesthetic. Dive into the world of digital dreams and subversive artistry...</p>
-            <button onclick="closePopup()">Let's Begin</button>
-        </div>
+  <!-- Popup -->
+  <div id="popup" class="popup">
+    <div class="popup-content">
+      <span class="close-popup" onclick="closePopup()">&times;</span>
+      <h2>Welcome to My Yeule Space</h2>
+      <p>Hi, I'm Sriya, a passionate fan of Yeule's innovative music and cybercore aesthetic.</p>
+      <button onclick="closePopup()">Let's Begin</button>
     </div>
+  </div>
 
-    <!-- Main Content -->
-    <header>
-        <h1>Sriya's Yeule Space</h1>
-        <p class="subtitle">Exploring the cybercore aesthetic and digital dreams</p>
-        <div class="cybercore-character" id="floatingCharacter">
-            <!-- Cybercore character SVG -->
-            <svg width="100" height="100" viewBox="0 0 100 100" aria-label="Cybercore character">
-                <title>Cybercore character</title>
-                <g class="character-body">
-                    <circle cx="50" cy="50" r="30" fill="#f5a4d6" opacity="0.8"/>
-                    <circle cx="45" cy="45" r="3" fill="white"/>
-                    <circle cx="55" cy="45" r="3" fill="white"/>
-                    <path d="M45,60 Q50,65 55,60" stroke="white" stroke-width="2" fill="none"/>
-                </g>
-            </svg>
-        </div>
-    </header>
+  <!-- Music Controls -->
+  <div class="music-controls">
+    <div id="player"></div>
+    <div class="controls">
+      <button id="playPause" onclick="toggleMusic()">
+        <svg width="24" height="24" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+      </button>
+      <div class="volume-slider">
+        <input type="range" min="0" max="100" value="50" id="volumeSlider" />
+        <span id="volumeValue">50%</span>
+      </div>
+    </div>
+  </div>
 
-    <main>
-        <section class="yeule-style">
-            <h2>Yeule's Style</h2>
-            <div class="style-description">
-                <p>Yeule's music is a blend of cyberpunk and contemporary R&B, creating a unique cybercore sound that challenges traditional genre boundaries. Her work often features:</p>
-                <ul>
-                    <li>Electronic soundscapes with organic elements</li>
-                    <li>Subversive lyrics that challenge societal norms</li>
-                    <li>Visual art that merges digital and physical worlds</li>
-                    <li>Experimental production techniques</li>
-                </ul>
-            </div>
-            <div class="floating-elements">
-                <div class="floating-circle"></div>
-                <div class="floating-circle"></div>
-                <div class="floating-circle"></div>
-            </div>
-        </section>
+  <!-- Content -->
+  <header>
+    <h1>Sriya's Yeule Space</h1>
+    <p class="subtitle">Exploring the cybercore aesthetic and digital dreams</p>
+    <div id="floatingCharacter">
+      <svg width="100" height="100" viewBox="0 0 100 100">
+        <g>
+          <circle cx="50" cy="50" r="30" fill="#f5a4d6" opacity="0.8"/>
+          <circle cx="45" cy="45" r="3" fill="white"/>
+          <circle cx="55" cy="45" r="3" fill="white"/>
+          <path d="M45,60 Q50,65 55,60" stroke="white" stroke-width="2" fill="none"/>
+        </g>
+      </svg>
+    </div>
+  </header>
 
-        <section class="aesthetic">
-            <h2>Cybercore Aesthetic</h2>
-            <div class="aesthetic-description">
-                <p>Yeule's cybercore aesthetic is characterized by:</p>
-                <ul>
-                    <li>Neon colors and digital glitch effects</li>
-                    <li>Blurring of virtual and real worlds</li>
-                    <li>Subversive fashion and gender fluidity</li>
-                    <li>Exploration of digital identity</li>
-                </ul>
-            </div>
-            <div class="glitch-effect">
-                <div class="glitch-layer"></div>
-                <div class="glitch-layer"></div>
-                <div class="glitch-layer"></div>
-            </div>
-        </section>
-    </main>
+  <main>
+    <!-- Your main sections as before -->
+  </main>
 
-    <footer>
-        <p>Created by Sriya - A fan of Yeule's innovative music and art</p>
-        <div class="footer-particles"></div>
-    </footer>
+  <footer>
+    <p>Created by Sriya - A fan of Yeule's innovative music and art</p>
+    <div class="footer-particles"></div>
+  </footer>
 
-    <script src="script.js"></script>
+  <!-- YouTube API & Scripts -->
+  <script>
+    // YouTube Player Global Variable
+    let player;
+
+    // YT API Callback
+    function onYouTubePlayerAPIReady() {
+      player = new YT.Player('player', {
+        height: '150',
+        width: '300',
+        videoId: 't1J6xJd1384',
+        playerVars: {
+          autoplay: 1,
+          controls: 0,
+          showinfo: 0,
+          rel: 0,
+          loop: 1,
+          mute: 1,
+          playlist: 't1J6xJd1384'
+        },
+        events: {
+          onReady: onPlayerReady
+        }
+      });
+    }
+
+    function onPlayerReady(event) {
+      const volumeSlider = document.getElementById('volumeSlider');
+      const volumeValue = document.getElementById('volumeValue');
+      player.setVolume(volumeSlider.value);
+      volumeValue.textContent = `${volumeSlider.value}%`;
+
+      volumeSlider.addEventListener('input', (e) => {
+        player.setVolume(e.target.value);
+        volumeValue.textContent = `${e.target.value}%`;
+      });
+
+      player.playVideo();
+    }
+
+    function toggleMusic() {
+      const button = document.getElementById('playPause');
+      if (player.getPlayerState() === YT.PlayerState.PLAYING) {
+        player.pauseVideo();
+        button.innerHTML = `<svg width="24" height="24" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>`;
+      } else {
+        player.playVideo();
+        button.innerHTML = `<svg width="24" height="24" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8 0h4V5h-4v14z"/></svg>`;
+      }
+    }
+
+    function closePopup() {
+      document.getElementById('popup').style.display = 'none';
+    }
+
+    // Auto-show popup
+    document.addEventListener('DOMContentLoaded', function () {
+      setTimeout(() => {
+        document.getElementById('popup').style.display = 'block';
+      }, 500);
+    });
+
+    // Dismiss popup on outside click
+    window.onclick = function (e) {
+      const popup = document.getElementById('popup');
+      if (e.target === popup) {
+        popup.style.display = 'none';
+      }
+    };
+  </script>
+
+  <!-- Load YouTube IFrame API LAST -->
+  <script src="https://www.youtube.com/iframe_api"></script>
 </body>
 </html>
