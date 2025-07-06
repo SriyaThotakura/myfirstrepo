@@ -149,6 +149,59 @@ p {
     /* Add glitch animation or effect here */
 }
 
+.sticker-zone {
+    position: fixed;
+    top: 40px;
+    left: 0;
+    width: 100vw;
+    pointer-events: none;
+    z-index: 900;
+    display: flex;
+    justify-content: flex-start;
+    gap: 24px;
+    padding-left: 32px;
+}
+
+.sticker {
+    animation: floatSticker 6s ease-in-out infinite;
+    will-change: transform;
+    filter: drop-shadow(0 2px 8px #e94560aa);
+    pointer-events: auto;
+}
+
+.sticker-catbot {
+    animation-delay: 0s;
+}
+.sticker-bunny {
+    animation-delay: 2s;
+}
+
+@keyframes floatSticker {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-18px) scale(1.08); }
+}
+
+/* Blinking animation for eyes */
+.catbot-eye, .bunny-eye {
+    transform-origin: center;
+    animation: blinkEye 5s infinite;
+}
+.sticker-bunny .bunny-eye {
+    animation-delay: 2.5s;
+}
+.sticker-catbot .catbot-eye {
+    animation-delay: 0s;
+}
+
+@keyframes blinkEye {
+    0%, 4%, 100% { transform: scaleY(1); }
+    2% { transform: scaleY(0.1); }
+    3% { transform: scaleY(1); }
+    50% { transform: scaleY(1); }
+    52% { transform: scaleY(0.1); }
+    54% { transform: scaleY(1); }
+}
+
 .floating-circle {
     width: 24px;
     height: 24px;
