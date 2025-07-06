@@ -1,30 +1,131 @@
-/* Set a white background and black text */
+/* Set a multi-color dark background and light text */
 body {
-    background-color: white;
-    color: black;
+    background: linear-gradient(135deg, 
+        #1a1a2e 0%, 
+        #16213e 25%, 
+        #0f3460 50%, 
+        #533483 75%, 
+        #e94560 100%);
+    background-attachment: fixed;
+    color: #ffffff;
     font-family: Arial, sans-serif;
     text-align: center; /* Center the text */
     padding: 50px;
+    min-height: 100vh;
+    margin: 0;
 }
 
 /* Style the button */
 button {
-    background-color: black;
+    background: linear-gradient(45deg, #e94560, #533483);
     color: white;
     border: none;
-    padding: 10px 20px;
+    padding: 12px 24px;
     font-size: 16px;
     cursor: pointer;
     margin-top: 20px;
+    border-radius: 25px;
+    box-shadow: 0 4px 15px rgba(233, 69, 96, 0.3);
+    transition: all 0.3s ease;
 }
 
 /* Add a hover effect to the button */
 button:hover {
-    background-color: #333;
+    background: linear-gradient(45deg, #533483, #e94560);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(233, 69, 96, 0.4);
 }
 
 /* Add space above the message */
 #message {
     margin-top: 20px;
     font-weight: bold;
+    color: #f0f0f0;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Style the heading */
+h1 {
+    color: #ffffff;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    margin-bottom: 30px;
+}
+
+/* Style paragraphs */
+p {
+    color: #e0e0e0;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Music Controls Styles */
+.music-controls {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+#player {
+    width: 100%;
+    max-width: 300px;
+    margin-bottom: 10px;
+}
+
+.controls {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+#playPause {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    background: rgba(245, 164, 214, 0.2);
+    transition: all 0.3s ease;
+}
+
+#playPause:hover {
+    background: rgba(245, 164, 214, 0.3);
+}
+
+#playPause svg {
+    fill: #f5a4d6;
+    transition: transform 0.3s ease;
+}
+
+#playPause:hover svg {
+    transform: scale(1.2);
+}
+
+.volume-slider {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#volumeSlider {
+    width: 100px;
+    accent-color: #f5a4d6;
+}
+
+#volumeValue {
+    color: #f5a4d6;
+    font-size: 0.9rem;
+}
+
+/* Hide YouTube player controls */
+#player .ytp-chrome-bottom {
+    display: none !important;
+}
+
+/* Hide YouTube player title */
+#player .ytp-title-text {
+    display: none !important;
 }
