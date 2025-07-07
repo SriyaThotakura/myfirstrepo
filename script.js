@@ -116,6 +116,22 @@ document.addEventListener('mousemove', function(e) {
     }, 500);
 });
 
+// Glitch button logic
+let glitchActive = false;
+const glitchBtn = document.getElementById('glitchBtn');
+const glitchOverlay = document.querySelector('.glitch-overlay');
+if (glitchBtn && glitchOverlay) {
+    glitchBtn.addEventListener('click', () => {
+        if (glitchActive) return;
+        glitchActive = true;
+        glitchOverlay.classList.add('active');
+        setTimeout(() => {
+            glitchOverlay.classList.remove('active');
+            glitchActive = false;
+        }, 1200);
+    });
+}
+
 // Initialize page
 document.addEventListener('DOMContentLoaded', function() {
     // Add some random floating elements on load
