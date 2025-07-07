@@ -44,7 +44,15 @@ volumeSlider.addEventListener('input', function() {
 
 // Sticker click effects
 document.querySelectorAll('.sticker').forEach(sticker => {
+    let animating = false;
     sticker.addEventListener('click', function() {
+        if (animating) return;
+        animating = true;
+        this.classList.add('clicked');
+        setTimeout(() => {
+            this.classList.remove('clicked');
+            animating = false;
+        }, 500);
         this.style.animation = 'none';
         setTimeout(() => {
             this.style.animation = 'float 3s ease-in-out infinite';
