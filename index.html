@@ -7,7 +7,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
 </head>
 <body>
-  <h1 id="main-title">Sriya's 2D canvas</h1>
+  <h1 id="main-title">Sriya's 2D and 3D canvases</h1>
 <div class="main-content">
   <div class="sketch-column">
     <div class="sketch-box">
@@ -18,10 +18,21 @@
       <div id="sketch2-container"></div>
       <div class="sketch-label">interactive Blood cells</div>
     </div>
+    <div class="sketch-box" style="margin-top: 48px;">
+      <div id="lshape-container"></div>
+      <div id="splitting-cube-container"></div>
+      <div class="sketch-label">3D Splitting Cube</div>
+    </div>
   </div>
 </div>
-
-  <script src="sketch1.js"></script> 
-  <script src="sketch2.js"></script>
+<!-- Three.js from CDN -->
+<script src="https://cdn.jsdelivr.net/npm/three@0.149.0/build/three.min.js"></script>
+<!-- OrbitControls from CDN -->
+<script src="https://cdn.jsdelivr.net/npm/three@0.149.0/examples/js/controls/OrbitControls.js"></script>
+<!-- Your Three.js project script -->
+<script src="sketch1.js"></script>
+<script src="sketch2.js"></script>
+<script src="splitting_cube_canvas.js"></script>
+<script src="l_shape.js"></script>
 </body>
 </html>
