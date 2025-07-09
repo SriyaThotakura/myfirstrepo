@@ -1,136 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sriya's Cybercore Subversive Aesthetic</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My p5.js Sketches</title>
 </head>
 <body>
-    <div class="bg-pattern">
-        <div class="digital-lines"></div>
-    </div>
-    <div class="glitch-overlay"></div>
 
-    <nav class="top-nav">
-        <ul>
-            <li><a href="#about">About</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-    </nav>
+  <h1>My Website with Two p5.js Sketches</h1>
 
-    <header>
-        <h1 class="title">Sriya's Cybercore</h1>
-        <p class="subtitle">Subversive Aesthetic Digital Space</p>
-    </header>
+  <!-- This is where your canvases will be rendered -->
 
-    <div class="hero-image">
-        <img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=1200&q=80" alt="Black and white photo of buildings" />
-    </div>
-    <button class="glitch-btn" id="glitchBtn">GLITCH</button>
+  <!-- Load the p5.js library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
 
-    <div class="container">
-        <!-- Music Section -->
-        <section class="music-section">
-            <div class="music-header">
-                <div class="music-icon">♪</div>
-                <h2 class="music-title">yeule - softer</h2>
-            </div>
-            <div class="music-controls">
-                <button class="play-btn" onclick="toggleMusic()">▶ PLAY</button>
-                <input type="range" class="volume-slider" min="0" max="100" value="50" id="volumeSlider">
-                <span style="color: var(--text-muted); font-size: 0.9rem;">Volume</span>
-            </div>
-            <div style="margin-top: 1rem;">
-                <div class="color-block"></div>
-                <div class="color-block"></div>
-                <div class="color-block"></div>
-                <div class="color-block"></div>
-                <div class="color-block"></div>
-            </div>
-        </section>
+  <!-- Load your sketches (instance mode) -->
+  <script src="sketch1.js"></script>
+  <script src="sketch2.js"></script>
 
-        <!-- Stickers Section -->
-        <section class="stickers-section">
-            <h2 class="section-title">Digital Stickers</h2>
-            <div class="stickers-grid">
-                <div class="sticker">✨</div>
-                <div class="sticker">🌙</div>
-                <div class="sticker">💫</div>
-                <div class="sticker">🦋</div>
-                <div class="sticker">🌸</div>
-                <div class="sticker">💎</div>
-                <div class="sticker">🔮</div>
-                <div class="sticker">🌈</div>
-                <div class="sticker">🎭</div>
-                <div class="sticker">🎨</div>
-                <div class="sticker">🔥</div>
-                <div class="sticker">⚡</div>
-            </div>
-        </section>
-
-        <!-- Content Sections -->
-        <section class="content-section">
-            <h2 class="section-title">Aesthetic Philosophy</h2>
-            <div class="section-content">
-                <p>In the liminal space between digital and analog, between childhood memories and adult melancholia, we find the essence of cybercore subversion. This aesthetic embodies the duality of joy and suffering, wrapped in softer textures and muted pastels that speak to vulnerability and introspection.</p>
-                <br>
-                <p>The yeule-inspired palette reflects the journey of confronting one's younger self, seeking solace in the contrast between light and dark, between the brightness of childhood dreams and the subdued reality of grown-up understanding.</p>
-            </div>
-        </section>
-
-        <section class="content-section">
-            <h2 class="section-title">Inner Child Healing</h2>
-            <div class="section-content">
-                <p>Through digital patterns and nostalgic color schemes, we create a space for healing. The animated grids and floating elements represent the constant movement of memory and emotion, while the softer textures provide comfort and safety.</p>
-                <br>
-                <p>This is a sanctuary for the subversive soul - one that refuses to conform to harsh realities without losing touch with tender humanity.</p>
-            </div>
-        </section>
-    </div>
-
-    <!-- About Section -->
-    <section class="content-section" id="about">
-        <h2 class="section-title">About</h2>
-        <div class="section-content">
-            <p>This site is a digital sanctuary for exploring cybercore aesthetics, creative projects, and personal reflections. Inspired by liminality, softness, and digital subversion.</p>
-        </div>
-    </section>
-
-    <!-- Projects Section -->
-    <section class="content-section" id="projects">
-        <h2 class="section-title">Projects</h2>
-        <div class="section-content">
-            <ul class="projects-list">
-                <li><strong>Project 1:</strong> Digital Sticker Generator (coming soon)</li>
-                <li><strong>Project 2:</strong> Cybercore Music Visualizer</li>
-                <li><strong>Project 3:</strong> Interactive Aesthetic Blog</li>
-            </ul>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section class="content-section" id="contact">
-        <h2 class="section-title">Contact</h2>
-        <div class="section-content">
-            <form class="contact-form">
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" required>
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
-                <label for="message">Message:</label>
-                <textarea id="message" name="message" rows="3" required></textarea>
-                <button type="submit">Send</button>
-            </form>
-        </div>
-    </section>
-
-    <!-- Floating Elements -->
-    <div class="floating-element" style="top: 20%; left: 10%;">◇</div>
-    <div class="floating-element" style="top: 60%; right: 15%; animation-delay: 5s;">◆</div>
-    <div class="floating-element" style="bottom: 30%; left: 20%; animation-delay: 10s;">◈</div>
-
-    <script src="script.js"></script>
 </body>
 </html>
