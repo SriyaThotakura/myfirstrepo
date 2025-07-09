@@ -1,164 +1,143 @@
-function sketch1(p) {
-  let legoBlocks = [];
-  let staticBackground;
+// Function for second canvas - Interactive triangles
+function sketch2(p) {
+  let cols = 20;
+  let rows = 15;
+  let spacing = 40;
+  let time = 0;
+  let triangles = [];
+  let isInteractive = false;
+  let lastMouseMove = 0;
 
   p.setup = function() {
-    p.createCanvas(p.windowWidth, p.windowHeight);
+    p.createCanvas(800, 600);
+    p.colorMode(p.HSB, 360, 100, 100);
     
-    // Create static background
-    createStaticBackground();
-    
-    // Create Lego-like block arrangements
-    createLegoStructures();
-  };
-
-  function createStaticBackground() {
-    staticBackground = p.createGraphics(p.width, p.height);
-    
-    // Pure white background
-    staticBackground.background(255, 255, 255);
-  }
-
-  function createLegoStructures() {
-    let blockWidth = 120;
-    let blockHeight = 40;
-    let spacing = 5;
-    
-    // Create algae-like clusters spread across the canvas
-    let numClusters = 15;
-    
-    for (let cluster = 0; cluster < numClusters; cluster++) {
-      // Random position for each cluster
-      let centerX = p.random(100, p.width - 100);
-      let centerY = p.random(100, p.height - 100);
-      
-      // Random cluster size (2-6 rectangles)
-      let clusterSize = p.int(p.random(2, 7));
-      
-      // Random cluster color (green tones like algae)
-      let baseColor = [
-        p.random(50, 150),  // Low red for green tones
-        p.random(150, 255), // High green
-        p.random(50, 150)   // Low blue for green tones
-      ];
-      
-      // Create rectangles in organic, scattered pattern
-      for (let i = 0; i < clusterSize; i++) {
-        // Organic offset from center
-        let offsetX = p.random(-80, 80);
-        let offsetY = p.random(-60, 60);
-        
-        // Slight color variation within cluster
-        let colorVariation = 30;
-        let blockColor = [
-          p.constrain(baseColor[0] + p.random(-colorVariation, colorVariation), 0, 255),
-          p.constrain(baseColor[1] + p.random(-colorVariation, colorVariation), 0, 255),
-          p.constrain(baseColor[2] + p.random(-colorVariation, colorVariation), 0, 255)
-        ];
-        
-        // Random rectangle size variation - much more variation
-        let w = blockWidth + p.random(-60, 80);
-        let h = blockHeight + p.random(-25, 35);
-        
-        legoBlocks.push({
-          x: centerX + offsetX,
-          y: centerY + offsetY,
-          width: w,
-          height: h,
-          color: blockColor,
-          opacity: p.random(0.5, 0.8),
-          glowIntensity: p.random(0.8, 1.5),
-          rotation: p.random(-0.3, 0.3) // Slight random rotation
-        });
+    // Initialize triangle positions
+    for (let i = 0; i < cols; i++) {
+      triangles[i] = [];
+      for (let j = 0; j < rows; j++) {
+        triangles[i][j] = {
+          x: i * spacing + spacing,
+          y: j * spacing + spacing,
+          baseY: j * spacing + spacing,
+          size: 35,
+          rotation: 0
+        };
       }
     }
-  }
+  };
 
   p.draw = function() {
-    // Draw static background
-    p.image(staticBackground, 0, 0);
+    p.background(40, 20, 90); // Light cream background
     
-    // Draw Lego block structures
-    drawLegoBlocks();
-  };
-
-  function drawLegoBlocks() {
-    for (let block of legoBlocks) {
-      p.push();
-      p.translate(block.x, block.y);
-      
-      // Apply rotation if it exists
-      if (block.rotation) {
-        p.rotate(block.rotation);
+    // Update time slower for reduced motion
+    time += 0.005;
+    
+    // Check if mouse has moved recently
+    isInteractive = (p.millis() - lastMouseMove) < 2000; // Interactive for 2 seconds after mouse movement
+    
+    // Get mouse influence only when interactive
+    let mouseInfluence = isInteractive ? p.map(p.mouseX, 0, p.width, 0.8, 1.2) : 1.0;
+    let mouseWave = isInteractive ? p.map(p.mouseY, 0, p.height, 0.05, 0.15) : 0.1;
+    
+    // Draw shapes
+    for (let i = 0; i < cols; i++) {
+      for (let j = 0; j < rows; j++) {
+        let t = triangles[i][j];
+        
+        // Calculate distance from mouse
+        let distToMouse = p.dist(p.mouseX, p.mouseY, i * spacing + spacing, j * spacing + spacing);
+        let isNearMouse = distToMouse < 100 && isInteractive;
+        let mouseEffect = isNearMouse ? p.map(distToMouse, 0, 100, 1.4, 0.9) : 1.0;
+        mouseEffect = p.constrain(mouseEffect, 0.9, 1.4);
+        
+        // Calculate wave displacement - only for shapes near mouse
+        let waveX = isNearMouse ? p.sin(time * mouseInfluence + i * 0.3) * 15 * mouseEffect : 0;
+        let waveY = isNearMouse ? p.sin(time * mouseInfluence + i * 0.3 + j * mouseWave) * 10 * mouseEffect : 0;
+        
+        // Update position
+        t.x = i * spacing + spacing + waveX;
+        t.y = t.baseY + waveY;
+        
+        // Update rotation - only for shapes near mouse
+        t.rotation = isNearMouse ? time * mouseInfluence + i * 0.05 + j * 0.025 : 0;
+        
+        // Color: bright red for circles near mouse, cream for squares
+        let brightness, saturation, hue;
+        if (isNearMouse) {
+          brightness = p.map(p.sin(time * mouseInfluence + i * 0.1 + j * 0.1), -1, 1, 60, 85);
+          saturation = p.map(p.cos(time * mouseInfluence + i * 0.1 + j * 0.05), -1, 1, 70, 90);
+          hue = 0; // Red
+        } else {
+          brightness = 85; // Cream
+          saturation = 20; // Light cream color
+          hue = 40; // Warm cream hue
+        }
+        
+        // Draw shape
+        p.push();
+        p.translate(t.x, t.y);
+        p.rotate(t.rotation);
+        p.fill(hue, saturation, brightness);
+        p.stroke(hue, saturation * 0.8, brightness + 10);
+        p.strokeWeight(1);
+        
+        // Shape size - larger when near mouse
+        let waveSize = isNearMouse ? p.map(p.sin(time * mouseInfluence + i * 0.2 + j * 0.15), -1, 1, 1.0, 1.3) : 1.0;
+        let currentSize = t.size * waveSize * mouseEffect;
+        
+        // Draw fluid circle when near mouse, square otherwise
+        if (isNearMouse) {
+          // Create fluid circle with slight oval distortion
+          let fluidX = currentSize + p.sin(time * 2 + i * 0.3 + j * 0.2) * 3;
+          let fluidY = currentSize + p.cos(time * 1.5 + i * 0.2 + j * 0.3) * 2;
+          p.ellipse(0, 0, fluidX, fluidY);
+        } else {
+          p.rectMode(p.CENTER);
+          p.rect(0, 0, currentSize, currentSize);
+        }
+        
+        p.pop();
       }
-      
-      // Glass effect with multiple layers
-      let glowWidth = block.width * block.glowIntensity;
-      let glowHeight = block.height * block.glowIntensity;
-      
-      // Outer glow
-      p.fill(block.color[0], block.color[1], block.color[2], 20);
-      p.noStroke();
-      p.rect(-glowWidth/2, -glowHeight/2, glowWidth, glowHeight);
-      
-      // Main glass rectangle
-      p.fill(block.color[0], block.color[1], block.color[2], block.opacity * 255);
-      p.stroke(255, 255, 255, 100);
-      p.strokeWeight(2);
-      p.rect(-block.width/2, -block.height/2, block.width, block.height);
-      
-      // Glass reflection highlight
-      p.fill(255, 255, 255, 80);
-      p.noStroke();
-      let highlightWidth = block.width * 0.3;
-      let highlightHeight = block.height * 0.4;
-      p.rect(-block.width/2 + 8, -block.height/2 + 4, highlightWidth, highlightHeight);
-      
-      // Inner bright core
-      p.fill(block.color[0], block.color[1], block.color[2], 100);
-      let coreWidth = block.width * 0.6;
-      let coreHeight = block.height * 0.6;
-      p.rect(-coreWidth/2, -coreHeight/2, coreWidth, coreHeight);
-      
-      // Bright edge effect
-      p.stroke(block.color[0] + 50, block.color[1] + 50, block.color[2] + 50, 150);
-      p.strokeWeight(3);
-      p.noFill();
-      p.rect(-block.width/2, -block.height/2, block.width, block.height);
-      
-      // Add organic spots like algae cells - fixed position
-      p.fill(255, 255, 255, 120);
-      p.noStroke();
-      let spotSize = p.min(block.width, block.height) * 0.15;
-      // Fixed position instead of random
-      p.ellipse(block.width * 0.1, block.height * 0.1, spotSize, spotSize);
-      
+    }
+    
+    // Add subtle glow effect only for shapes near mouse
+    if (isInteractive) {
+      p.push();
+      p.blendMode(p.ADD);
+      for (let i = 0; i < cols; i++) {
+        for (let j = 0; j < rows; j++) {
+          let t = triangles[i][j];
+          let distToMouse = p.dist(p.mouseX, p.mouseY, t.x, t.y);
+          if (distToMouse < 80) {
+            let glowIntensity = p.map(distToMouse, 0, 80, 75, 15);
+            let glowSize = p.map(p.sin(time + i * 0.2 + j * 0.15), -1, 1, 4, 15);
+            p.fill(0, 40, glowIntensity, 20);
+            p.noStroke();
+            p.ellipse(t.x, t.y, glowSize);
+          }
+        }
+      }
       p.pop();
     }
-  }
-
-  p.windowResized = function() {
-    p.resizeCanvas(p.windowWidth, p.windowHeight);
-    createStaticBackground();
-    legoBlocks = [];
-    createLegoStructures();
   };
 
-  // Add new block to existing structures
+  p.keyPressed = function() {
+    if (p.key === ' ') {
+      time = 0; // Reset animation
+    }
+  };
+
   p.mousePressed = function() {
-    // Add new algae-like rectangle at mouse position
-    legoBlocks.push({
-      x: p.mouseX,
-      y: p.mouseY,
-      width: p.random(60, 180),
-      height: p.random(20, 70),
-      color: [p.random(50, 150), p.random(150, 255), p.random(50, 150)],
-      opacity: p.random(0.5, 0.8),
-      glowIntensity: p.random(0.8, 1.5),
-      rotation: p.random(-0.3, 0.3)
-    });
+    // Ripple effect from mouse position
+    time += 0.5; // Create a ripple jump
+  };
+
+  p.mouseMoved = function() {
+    // Track mouse movement for interactivity
+    lastMouseMove = p.millis();
   };
 }
 
-// Run first p5 instance
-new p5(sketch1);
+// Run second p5 instance  
+new p5(sketch2);
