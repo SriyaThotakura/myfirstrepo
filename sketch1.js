@@ -3,7 +3,8 @@ function sketch1(p) {
   let staticBackground;
 
   p.setup = function() {
-    p.createCanvas(p.windowWidth, p.windowHeight);
+    let canvas = p.createCanvas(800, 600);
+  canvas.parent('sketch1-container');
     
     // Create static background
     createStaticBackground();
@@ -137,12 +138,7 @@ function sketch1(p) {
     }
   }
 
-  p.windowResized = function() {
-    p.resizeCanvas(p.windowWidth, p.windowHeight);
-    createStaticBackground();
-    legoBlocks = [];
-    createLegoStructures();
-  };
+  
 
   // Add new block to existing structures
   p.mousePressed = function() {

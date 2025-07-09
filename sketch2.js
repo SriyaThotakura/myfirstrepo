@@ -9,7 +9,8 @@ function sketch2(p) {
   let lastMouseMove = 0;
 
   p.setup = function() {
-    p.createCanvas(800, 600);
+    let canvas = p.createCanvas(800, 600);
+  canvas.parent('sketch2-container');
     p.colorMode(p.HSB, 360, 100, 100);
     
     // Initialize triangle positions

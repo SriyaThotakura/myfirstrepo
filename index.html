@@ -3,18 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <title>Multiple p5.js Sketches</title>
-  <script src="libraries/p5.js"></script> 
-  <!-- Assuming you have a 'libraries' folder containing p5.js -->
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
 </head>
 <body>
-  <h1>Sketch 1</h1>
-  <div id="sketch1-container"></div> 
-
-  <h1>Sketch 2</h1>
-  <div id="sketch2-container"></div>
+  <h1 id="main-title">Sriya's 2D canvas</h1>
+<div class="main-content">
+  <div class="sketch-column">
+    <div class="sketch-box">
+      <div id="sketch1-container"></div>
+      <div class="sketch-label">Static glass squares</div>
+    </div>
+    <div class="sketch-box" style="margin-top: 48px;">
+      <div id="sketch2-container"></div>
+      <div class="sketch-label">interactive Blood cells</div>
+    </div>
+  </div>
+</div>
 
   <script src="sketch1.js"></script> 
   <script src="sketch2.js"></script>
 </body>
 </html>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
